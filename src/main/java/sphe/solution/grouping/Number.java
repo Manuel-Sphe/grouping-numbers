@@ -3,11 +3,10 @@ package sphe.solution.grouping;
 import org.springframework.stereotype.Component;
 import sphe.solution.grouping.numberrangesummarizer.NumberRangeSummarizer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.regex.PatternSyntaxException;
+import java.util.stream.Collectors;
 
 @Component
 public class Number implements NumberRangeSummarizer{
@@ -40,6 +39,32 @@ public class Number implements NumberRangeSummarizer{
 
     @Override
     public String summarizeCollection(Collection<Integer> input) {
+
+        Iterator<Integer>  iterator = input.iterator();
+        List<List<Integer>> groups = new ArrayList<>();
+        List<Integer> currentGroup = new ArrayList<>();
+        Integer prev = null ;
+        while(iterator.hasNext()){
+            Integer item = iterator.next();
+
+            if(prev!= null && item.equals(prev+1)){
+                currentGroup.add(item);
+            }
+            else{
+                // Add the list to the list of Lists
+                if(!currentGroup.isEmpty()){
+                    groups.add(currentGroup);
+                }
+                currentGroup = new ArrayList<>();
+                currentGroup.add(item);
+            }
+            prev = item ;
+
+        }
+        if(!currentGroup.isEmpty())
+            groups.add(currentGroup);
+
+        groups.forEach(System.out::println);
         return null;
     }
 }
