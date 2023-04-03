@@ -29,7 +29,7 @@ public class Number implements NumberRangeSummarizer{
 
         for (final String item : number) {
             try {
-                collection.add(Integer.parseInt(item));
+                collection.add(Integer.parseInt(item.trim()));
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException(item + " is not a valid integer");
             }
