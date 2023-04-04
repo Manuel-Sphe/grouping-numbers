@@ -51,7 +51,7 @@ class GroupingApplicationTests {
 			assertEquals("a is not a valid integer", e.getMessage());
 		}
 
-		number.summarizeCollection(number.collect("1,3,6,7,8,12,13,14,15,21,22,23,24,31"));
+		number.summarizeCollection(number.collect("1,4,4,4,4,6,7,8,12,12,12,12,13,14,15,21,22,23,24,31"));
 	}
 
 	@Test
@@ -76,6 +76,44 @@ class GroupingApplicationTests {
 			assertEquals("Input cannot be null", e.getMessage());
 		}
 	}
+
+	@Test
+	@DisplayName("Null collection")
+	public void testSummarizeCollectionEmpty() {
+		Collection<Integer> input = new ArrayList<>();
+		String expected = "";
+		String actual = number.summarizeCollection(input);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	@DisplayName("Collection with one number")
+	public void testSummarizeCollectionSingleNumber() {
+		Collection<Integer> input = Arrays.asList(1);
+		String expected = "1";
+		String actual = number.summarizeCollection(input);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	@DisplayName("Multiple numbers no adjacent duplicates")
+	public void testSummarizeCollectionNoDuplicates() {
+		Collection<Integer> input = Arrays.asList(1, 2, 3, 4, 5);
+		String expected = "1-5";
+		String actual = number.summarizeCollection(input);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	@DisplayName("Multiple Adjacent Duplicates")
+	public void testSummarizeCollectionMultipleAdjacentDuplicates() {
+		Collection<Integer> input = Arrays.asList(1,3,6,7,8,12,13,14,15,21,22,23,24,31);
+		String expected = "1,3,6-8,12-15,21-24,31";
+		String actual = number.summarizeCollection(input);
+		assertEquals(expected, actual);
+	}
+
+
 
 
 

@@ -2,11 +2,7 @@ package sphe.solution.grouping;
 
 import org.springframework.stereotype.Component;
 import sphe.solution.grouping.numberrangesummarizer.NumberRangeSummarizer;
-
 import java.util.*;
-import java.util.function.Function;
-import java.util.regex.PatternSyntaxException;
-import java.util.stream.Collectors;
 
 @Component
 public class Number implements NumberRangeSummarizer{
@@ -39,15 +35,21 @@ public class Number implements NumberRangeSummarizer{
 
     @Override
     public String summarizeCollection(Collection<Integer> input) {
-
+        if(input==null)
+            return "";
+        // Collection doesn't have a get(index), so I used the iterator, with equivalent pointer-iterator
         Iterator<Integer>  iterator = input.iterator();
-        List<List<Integer>> groups = new ArrayList<>();
-        List<Integer> currentGroup = new ArrayList<>();
+        List<List<Integer>> groups = new ArrayList<>(); // holding lists
+        List<Integer> currentGroup = new ArrayList<>();// group numbers, sequential number will size-of-this-list > 1
+
         Integer prev = null ;
+
         while(iterator.hasNext()){
             Integer item = iterator.next();
 
-            if(prev!= null && item.equals(prev+1)){
+            if(item.equals(prev))
+                continue;
+            if(prev!= null && item.equals(prev+1)){ // used equals(Not == ) Integer is an Object .
                 currentGroup.add(item);
             }
             else{
@@ -65,7 +67,7 @@ public class Number implements NumberRangeSummarizer{
             groups.add(currentGroup);
 
         ArrayList<String> myList = new ArrayList<>();
-        groups.forEach((list)->{
+        groups.forEach((list)->{ // for-each list get lower and value
             int size = list.size();
             if(size==1)
                 myList.add(String.valueOf(list.get(0)));
@@ -73,7 +75,7 @@ public class Number implements NumberRangeSummarizer{
                 myList.add(list.get(0)+"-"+list.get(size-1));
             }
         });
-        System.out.println(String.join(" ,",myList));
-        return String.join(" ,",myList);
+        System.out.println(String.join(",",myList));
+        return String.join(",",myList);
     }
 }
