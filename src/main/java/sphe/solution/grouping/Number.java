@@ -1,10 +1,11 @@
 package sphe.solution.grouping;
-
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import sphe.solution.grouping.numberrangesummarizer.NumberRangeSummarizer;
 import java.util.*;
 
 @Component
+@Lazy
 public class Number implements NumberRangeSummarizer{
 
     @Override
@@ -75,7 +76,8 @@ public class Number implements NumberRangeSummarizer{
                 myList.add(list.get(0)+"-"+list.get(size-1));
             }
         });
-        System.out.println(String.join(",",myList));
+
+
         return String.join(",",myList);
     }
 }

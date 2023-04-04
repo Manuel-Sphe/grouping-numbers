@@ -1,12 +1,12 @@
 package sphe.solution.grouping;
 
 import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import java.util.Collection;
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Lazy
 class GroupingApplicationTests {
 
 	@Autowired // field injection
@@ -51,7 +52,7 @@ class GroupingApplicationTests {
 			assertEquals("a is not a valid integer", e.getMessage());
 		}
 
-		number.summarizeCollection(number.collect("1,4,4,4,4,6,7,8,12,12,12,12,13,14,15,21,22,23,24,31"));
+		number.summarizeCollection(number.collect("1, 2, 2, 3, 3, 3, 4, 5, 5, 6, 6, 6"));
 	}
 
 	@Test
@@ -107,6 +108,15 @@ class GroupingApplicationTests {
 	@Test
 	@DisplayName("Multiple Adjacent Duplicates")
 	public void testSummarizeCollectionMultipleAdjacentDuplicates() {
+		Collection<Integer> input = Arrays.asList(1, 2, 2, 3, 3, 3, 4, 5, 5, 6, 6, 6,9,10,11,13);
+		String expected = "1-6,9-11,13";
+		String actual = number.summarizeCollection(input);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	@DisplayName("Test given input")
+	public void testSummarizeCollectionSimpleInput() {
 		Collection<Integer> input = Arrays.asList(1,3,6,7,8,12,13,14,15,21,22,23,24,31);
 		String expected = "1,3,6-8,12-15,21-24,31";
 		String actual = number.summarizeCollection(input);
