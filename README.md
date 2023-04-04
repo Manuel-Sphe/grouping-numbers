@@ -35,3 +35,6 @@ cd grouping-numbers
 .\mvnw clean spring-boot:run 
 ```
 * Alternatively you open the project in IntelliJ or Eclipse 
+
+NB : 
+I used Spring Container(IoC) for Dependency injection, also used Lazy initialisation to only construct a Bean when it's needed
