@@ -64,7 +64,16 @@ public class Number implements NumberRangeSummarizer{
         if(!currentGroup.isEmpty())
             groups.add(currentGroup);
 
-        groups.forEach(System.out::println);
-        return null;
+        ArrayList<String> myList = new ArrayList<>();
+        groups.forEach((list)->{
+            int size = list.size();
+            if(size==1)
+                myList.add(String.valueOf(list.get(0)));
+            else if (size > 1) {
+                myList.add(list.get(0)+"-"+list.get(size-1));
+            }
+        });
+        System.out.println(String.join(" ,",myList));
+        return String.join(" ,",myList);
     }
 }

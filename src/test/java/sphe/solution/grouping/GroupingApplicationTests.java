@@ -51,7 +51,7 @@ class GroupingApplicationTests {
 			assertEquals("a is not a valid integer", e.getMessage());
 		}
 
-		number.summarizeCollection(number.collect("1,3,5,6,7,8,10,12,13,14,19"));
+		number.summarizeCollection(number.collect("1,3,6,7,8,12,13,14,15,21,22,23,24,31"));
 	}
 
 	@Test
