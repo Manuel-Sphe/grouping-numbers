@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import sphe.solution.grouping.numberrangesummarizer.NumberRangeSummarizer;
 import java.util.*;
 
+
 @Component
 @Lazy
 public class Number implements NumberRangeSummarizer{
@@ -15,7 +16,12 @@ public class Number implements NumberRangeSummarizer{
             throw new IllegalArgumentException("Input cannot be null");
         }
 
-        Collection<Integer> collection = new ArrayList<>();
+        /*
+        * The TreeSet - Will ensure no duplicates and sort the numbers .
+        * TreeSet is basically an implementation of a self-balancing binary search tree like a Red-Black Tree.
+        * Therefore, operations like add, remove, and search takes O(log(N)) time.
+         * */
+        Collection<Integer> collection = new TreeSet<>();
         String[] number = input.split(",");
 
         // Check for empty input
@@ -31,7 +37,8 @@ public class Number implements NumberRangeSummarizer{
             }
         }
 
-        return collection;
+        // return a list, because my test use ArrayList, I rather change this one-line
+        return new ArrayList<>(collection);
     }
 
     @Override
@@ -53,8 +60,6 @@ public class Number implements NumberRangeSummarizer{
             input, ensure validaty of input, remove duplicates, Sort input? eg, 5,4,3,2,1... is this a valid group? Not accorind to this code. But we know 
             you are not guaranteed to get sorted input from a user.
             */
-            if(item.equals(prev))
-                continue; 
             if(prev!= null && item.equals(prev+1)){ // used equals(Not == ) Integer is an Object .
                 currentGroup.add(item);
             }
@@ -73,6 +78,7 @@ public class Number implements NumberRangeSummarizer{
             groups.add(currentGroup);
 
         ArrayList<String> myList = new ArrayList<>();
+
         groups.forEach((list)->{ // for-each list get lower and value
             int size = list.size();
             if(size==1)

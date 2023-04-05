@@ -30,6 +30,13 @@ class GroupingApplicationTests {
 	}
 
 	@Test
+	@DisplayName("Input with spaces --valid reverse order")
+	void testCollect_0(){
+		actual = number.collect(" 1 , 2 , 3 ");
+		assertEquals(expected, actual);
+	}
+
+	@Test
 	@DisplayName("Test Valid input")
 	void testCollect_1(){
 		actual = number.collect("1,2,3");
@@ -78,6 +85,10 @@ class GroupingApplicationTests {
 		}
 	}
 
+	/*
+	* Changed these Test to use the collect() method as a helper method
+	* */
+
 	@Test
 	@DisplayName("Null collection")
 	public void testSummarizeCollectionEmpty() {
@@ -90,7 +101,7 @@ class GroupingApplicationTests {
 	@Test
 	@DisplayName("Collection with one number")
 	public void testSummarizeCollectionSingleNumber() {
-		Collection<Integer> input = Arrays.asList(1);
+		Collection<Integer> input = number.collect("1");
 		String expected = "1";
 		String actual = number.summarizeCollection(input);
 		assertEquals(expected, actual);
@@ -99,7 +110,7 @@ class GroupingApplicationTests {
 	@Test
 	@DisplayName("Multiple numbers no adjacent duplicates")
 	public void testSummarizeCollectionNoDuplicates() {
-		Collection<Integer> input = Arrays.asList(1, 2, 3, 4, 5);
+		Collection<Integer> input = number.collect("1, 2, 3, 4, 5");
 		String expected = "1-5";
 		String actual = number.summarizeCollection(input);
 		assertEquals(expected, actual);
@@ -108,7 +119,7 @@ class GroupingApplicationTests {
 	@Test
 	@DisplayName("Multiple Adjacent Duplicates")
 	public void testSummarizeCollectionMultipleAdjacentDuplicates() {
-		Collection<Integer> input = Arrays.asList(1, 2, 2, 3, 3, 3, 4, 5, 5, 6, 6, 6,9,10,11,13);
+		Collection<Integer> input = number.collect("1, 2, 2, 3, 3, 3, 4, 5, 5, 6, 6, 6,9,10,11,13");
 		String expected = "1-6,9-11,13";
 		String actual = number.summarizeCollection(input);
 		assertEquals(expected, actual);
@@ -117,12 +128,19 @@ class GroupingApplicationTests {
 	@Test
 	@DisplayName("Test given input")
 	public void testSummarizeCollectionSimpleInput() {
-		Collection<Integer> input = Arrays.asList(1,3,6,7,8,12,13,14,15,21,22,23,24,31);
+		Collection<Integer> input = number.collect("1,3,6,7,8,12,13,14,15,21,22,23,24,31");
 		String expected = "1,3,6-8,12-15,21-24,31";
 		String actual = number.summarizeCollection(input);
 		assertEquals(expected, actual);
 	}
-
+	@Test
+	@DisplayName("Unordered with duplicates")
+	public void testSummarizeCollectionUnorderedWithDuplicates() {
+		Collection<Integer> input = number.collect("11,11,10,9,9,1,1, 2,2,2, 13,14,15, 4, 5,6,6,19,19");
+		String expected = "1-2,4-6,9-11,13-15,19";
+		String actual = number.summarizeCollection(input);
+		assertEquals(expected, actual);
+	}
 
 
 
