@@ -23,7 +23,7 @@ public class Number implements NumberRangeSummarizer{
             throw new IllegalArgumentException("Input must contain at least one number");
         }
 
-        for (final String item : number) {
+        for (final String item : number) { // would have been a great opportunity to use Java streams here
             try {
                 collection.add(Integer.parseInt(item.trim()));
             } catch (NumberFormatException e) {
@@ -47,9 +47,14 @@ public class Number implements NumberRangeSummarizer{
 
         while(iterator.hasNext()){
             Integer item = iterator.next();
-
+            /*
+            Strange way to remove duplicates.. Isn't there an appropriate data structure you can use for this? Also makes me wonder if this method
+            should concern itself with validating or checking input. Seems to me this would have been better done in the collect method. While collecting 
+            input, ensure validaty of input, remove duplicates, Sort input? eg, 5,4,3,2,1... is this a valid group? Not accorind to this code. But we know 
+            you are not guaranteed to get sorted input from a user.
+            */
             if(item.equals(prev))
-                continue;
+                continue; 
             if(prev!= null && item.equals(prev+1)){ // used equals(Not == ) Integer is an Object .
                 currentGroup.add(item);
             }
