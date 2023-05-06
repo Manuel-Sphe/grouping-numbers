@@ -31,13 +31,15 @@ public class Number implements NumberRangeSummarizer{
 
         for (final String item : number) { // would have been a great opportunity to use Java streams here
             try {
+                // add the number to the collection
                 collection.add(Integer.parseInt(item.trim()));
+             // Check for invalid input
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException(item + " is not a valid integer");
             }
         }
 
-        // return a list, because my test use ArrayList, I rather change this one-line
+        // return a list, because my test use ArrayList, I rather change this one-line than change the test
         return new ArrayList<>(collection);
     }
 
@@ -54,12 +56,6 @@ public class Number implements NumberRangeSummarizer{
 
         while(iterator.hasNext()){
             Integer item = iterator.next();
-            /*
-            Strange way to remove duplicates.. Isn't there an appropriate data structure you can use for this? Also makes me wonder if this method
-            should concern itself with validating or checking input. Seems to me this would have been better done in the collect method. While collecting 
-            input, ensure validaty of input, remove duplicates, Sort input? eg, 5,4,3,2,1... is this a valid group? Not accorind to this code. But we know 
-            you are not guaranteed to get sorted input from a user.
-            */
             if(prev!= null && item.equals(prev+1)){ // used equals(Not == ) Integer is an Object .
                 currentGroup.add(item);
             }
@@ -68,13 +64,14 @@ public class Number implements NumberRangeSummarizer{
                 if(!currentGroup.isEmpty()){
                     groups.add(currentGroup);
                 }
+
                 currentGroup = new ArrayList<>();
                 currentGroup.add(item);
             }
             prev = item ;
 
         }
-        if(!currentGroup.isEmpty())
+        if(!currentGroup.isEmpty()) // add the last group
             groups.add(currentGroup);
 
         ArrayList<String> myList = new ArrayList<>();

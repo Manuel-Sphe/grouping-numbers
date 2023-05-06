@@ -18,8 +18,9 @@ import static org.junit.Assert.*;
 @Lazy
 class GroupingApplicationTests {
 
-	@Autowired // field injection
+	@Autowired // field injection is not recommended, but I'm lazy
 	private  Number number;
+
 
 	private final Collection<Integer> expected = Arrays.asList(1,2,3);
 	private Collection<Integer> actual ;
