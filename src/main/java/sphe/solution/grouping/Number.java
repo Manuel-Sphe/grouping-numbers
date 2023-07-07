@@ -13,9 +13,10 @@ public class Number implements NumberRangeSummarizer{
     @Override
     public Collection<Integer> collect(String input) {
         // Check for null input
-        if (input == null) {
-            throw new IllegalArgumentException("Input cannot be null");
-        }
+
+        Optional<String> stringOptional = Optional.ofNullable(input);
+
+        if (stringOptional.isEmpty()) throw new IllegalArgumentException("Input cannot be null");
 
         String[] number = input.split(",");
 
