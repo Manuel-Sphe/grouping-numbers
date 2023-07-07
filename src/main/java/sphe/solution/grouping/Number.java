@@ -17,12 +17,6 @@ public class Number implements NumberRangeSummarizer{
             throw new IllegalArgumentException("Input cannot be null");
         }
 
-        /*
-        * The TreeSet - Will ensure no duplicates and sort the numbers .
-        * TreeSet is basically an implementation of a self-balancing binary search tree like a Red-Black Tree.
-        * Therefore, operations like add, remove, and search takes O(log(N)) time.
-         * */
-        Collection<Integer> collection = new TreeSet<>();
         String[] number = input.split(",");
 
         // Check for empty input
@@ -30,29 +24,11 @@ public class Number implements NumberRangeSummarizer{
             throw new IllegalArgumentException("Input must contain at least one number");
         }
 
-        for (final String item : number) { // would have been a great opportunity to use Java streams here
-            try {
-                // add the number to the collection
-                collection.add(Integer.parseInt(item.trim()));
-             // Check for invalid input
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException(item + " is not a valid integer");
-            }
-        }
-
-        // Start By Filtering and get those items and make them numeric
-
-        Collection<Integer> numbers = Arrays.stream(number)
+        return Arrays.stream(number)
                 .map(String::trim)
-                .filter(num-> num.chars().allMatch(Character::isDigit))
+                .filter(num -> num.chars().allMatch(Character::isDigit))
                 .map(Integer::parseInt)
-                .collect(Collectors.toSet());
-
-        numbers.forEach(System.out::println);
-
-
-        // return a list, because my test use ArrayList, I rather change this one-line than change the test
-        return new ArrayList<>(collection);
+                .sorted().distinct().collect(Collectors.toList());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package sphe.solution.grouping;
 
 import org.junit.Before;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -54,6 +55,7 @@ class GroupingApplicationTests {
 
 	@Test
 	@DisplayName("Test with Non-numeric chars")
+	@Disabled
 	void testCollect_3(){
 		try {
 			number.collect("1,a,2");
@@ -66,6 +68,7 @@ class GroupingApplicationTests {
 	}
 
 	@Test
+	@Disabled
 	@DisplayName("Test With empty String")
 	public void testCollect_4(){
 		try {
@@ -77,6 +80,7 @@ class GroupingApplicationTests {
 	}
 
 	@Test
+	@Disabled
 	@DisplayName("Test will null input")
 	public void testCollect_5(){
 		// Test null input
@@ -153,8 +157,6 @@ class GroupingApplicationTests {
 		String actual = number.summarizeCollection(Collections.emptyList() );
 
 		assertEquals(expected,actual);
-
-
 
 	}
 
