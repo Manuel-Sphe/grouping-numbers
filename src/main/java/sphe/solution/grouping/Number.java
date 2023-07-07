@@ -3,6 +3,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import sphe.solution.grouping.numberrangesummarizer.NumberRangeSummarizer;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -39,13 +40,24 @@ public class Number implements NumberRangeSummarizer{
             }
         }
 
+        // Start By Filtering and get those items and make them numeric
+
+        Collection<Integer> numbers = Arrays.stream(number)
+                .map(String::trim)
+                .filter(num-> num.chars().allMatch(Character::isDigit))
+                .map(Integer::parseInt)
+                .collect(Collectors.toSet());
+
+        numbers.forEach(System.out::println);
+
+
         // return a list, because my test use ArrayList, I rather change this one-line than change the test
         return new ArrayList<>(collection);
     }
 
     @Override
     public String summarizeCollection(Collection<Integer> input) {
-        if(input==null)
+        if(input.isEmpty())
             return "";
         // Collection doesn't have a get(index), so I used the iterator, with equivalent pointer-iterator
         Iterator<Integer>  iterator = input.iterator();
@@ -56,7 +68,7 @@ public class Number implements NumberRangeSummarizer{
 
         while(iterator.hasNext()){
             Integer item = iterator.next();
-            if(prev!= null && item.equals(prev+1)){ // used equals(Not == ) Integer is an Object .
+            if(prev!= null && item.equals(prev + 1)){ // used equals(Not == ) Integer is an Object .
                 currentGroup.add(item);
             }
             else{
@@ -77,12 +89,15 @@ public class Number implements NumberRangeSummarizer{
         ArrayList<String> myList = new ArrayList<>();
 
         groups.forEach((list)->{ // for-each list get lower and value
+
             int size = list.size();
-            if(size==1)
+
+            if(size == 1)
                 myList.add(String.valueOf(list.get(0)));
             else if (size > 1) {
                 myList.add(list.get(0)+"-"+list.get(size-1));
             }
+
         });
 
 

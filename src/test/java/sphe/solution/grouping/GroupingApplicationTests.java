@@ -12,6 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -141,6 +143,19 @@ class GroupingApplicationTests {
 		String expected = "1-2,4-6,9-11,13-15,19";
 		String actual = number.summarizeCollection(input);
 		assertEquals(expected, actual);
+	}
+
+	@Test
+	@DisplayName("Empty input")
+	public void testSummarizeCollectionUnorderedWithEmptyString(){
+		String expected = "";
+
+		String actual = number.summarizeCollection(Collections.emptyList() );
+
+		assertEquals(expected,actual);
+
+
+
 	}
 
 
