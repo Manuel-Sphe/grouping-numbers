@@ -1,7 +1,6 @@
 package sphe.solution.grouping;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -55,20 +54,17 @@ class GroupingApplicationTests {
 
 	@Test
 	@DisplayName("Test with Non-numeric chars")
-	@Disabled
 	void testCollect_3(){
-		try {
-			number.collect("1,a,2");
-			fail("Expected IllegalArgumentException");
-		} catch (IllegalArgumentException e) {
-			assertEquals("a is not a valid integer", e.getMessage());
-		}
+		Collection<Integer> input = number.collect("1,a,2,3,b,5,6,8");
 
-		number.summarizeCollection(number.collect("1, 2, 2, 3, 3, 3, 4, 5, 5, 6, 6, 6"));
+		String expected = "1-3,5-6,8";
+
+		String actual = number.summarizeCollection(input);
+
+		assertEquals(expected,actual);
 	}
 
 	@Test
-	@Disabled
 	@DisplayName("Test With empty String")
 	public void testCollect_4(){
 		try {
@@ -80,7 +76,6 @@ class GroupingApplicationTests {
 	}
 
 	@Test
-	@Disabled
 	@DisplayName("Test will null input")
 	public void testCollect_5(){
 		// Test null input
