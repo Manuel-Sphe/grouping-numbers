@@ -10,6 +10,11 @@ import java.util.stream.Collectors;
 @Lazy
 public class Number implements NumberRangeSummarizer{
 
+    /**
+     * Collects the input
+     * @param input string
+     * @return a Collection of Distinct Integers
+     */
     @Override
     public Collection<Integer> collect(String input) {
         // Check for null input
@@ -32,6 +37,11 @@ public class Number implements NumberRangeSummarizer{
                 .sorted().distinct().collect(Collectors.toList());
     }
 
+    /**
+     * get the summarized string
+     * @param input a Collection
+     * @return a String
+     */
     @Override
     public String summarizeCollection(Collection<Integer> input) {
 
