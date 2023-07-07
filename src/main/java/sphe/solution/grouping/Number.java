@@ -34,8 +34,10 @@ public class Number implements NumberRangeSummarizer{
 
     @Override
     public String summarizeCollection(Collection<Integer> input) {
+
         if(input.isEmpty())
             return "";
+
         // Collection doesn't have a get(index), so I used the iterator, with equivalent pointer-iterator
         Iterator<Integer>  iterator = input.iterator();
         List<List<Integer>> groups = new ArrayList<>(); // holding lists
@@ -65,7 +67,7 @@ public class Number implements NumberRangeSummarizer{
 
         ArrayList<String> myList = new ArrayList<>();
 
-        groups.forEach((list)->{ // for-each list get lower and value
+        groups.forEach( list -> { // for-each list get lower and value
 
             int size = list.size();
 
