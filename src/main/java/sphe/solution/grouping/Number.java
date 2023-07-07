@@ -57,7 +57,7 @@ public class Number implements NumberRangeSummarizer{
 
         while(iterator.hasNext()){
             Integer item = iterator.next();
-            if(prev!= null && item.equals(prev + 1)){ // used equals(Not == ) Integer is an Object .
+            if(prev!= null && item.equals(prev + 1)){
                 currentGroup.add(item);
             }
             else{
