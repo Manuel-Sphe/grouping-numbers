@@ -23,7 +23,7 @@ public class Number implements NumberRangeSummarizer{
 
         if (stringOptional.isEmpty()) throw new IllegalArgumentException("Input cannot be null");
 
-        String[] number = input.split(",");
+        var number = input.split(",");
 
         // Check for empty input
         if (number.length == 1 && number[0].isEmpty()) {
