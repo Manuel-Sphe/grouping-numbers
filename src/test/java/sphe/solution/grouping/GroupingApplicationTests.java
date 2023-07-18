@@ -73,18 +73,20 @@ class GroupingApplicationTests {
 		} catch (IllegalArgumentException e) {
 			assertEquals("Input must contain at least one number", e.getMessage());
 		}
+		assertThrows(IllegalArgumentException.class ,()-> number.collect(null));
 	}
 
 	@Test
 	@DisplayName("Test will null input")
-	public void testCollect_5(){
+	public void testCollect_ThrowException(){
 		// Test null input
 		try {
 			number.collect(null);
 			fail("Expected IllegalArgumentException");
 		} catch (IllegalArgumentException e) {
-			assertEquals("Input cannot be null", e.getMessage());
+			assertEquals("Input cannot be Empty/Null", e.getMessage());
 		}
+		assertThrows(IllegalArgumentException.class ,()-> number.collect(null));
 	}
 
 	/*
@@ -94,18 +96,21 @@ class GroupingApplicationTests {
 	@Test
 	@DisplayName("Null collection")
 	public void testSummarizeCollectionEmpty() {
+
 		Collection<Integer> input = new ArrayList<>();
-		String expected = "";
-		String actual = number.summarizeCollection(input);
-		assertEquals(expected, actual);
+
+		assertNull(number.summarizeCollection(input));
 	}
 
 	@Test
 	@DisplayName("Collection with one number")
 	public void testSummarizeCollectionSingleNumber() {
+
 		Collection<Integer> input = number.collect("1");
-		String expected = "1";
-		String actual = number.summarizeCollection(input);
+		var expected = "1";
+		var actual = number.summarizeCollection(input);
+
+		assertNotNull(actual);
 		assertEquals(expected, actual);
 	}
 
@@ -113,8 +118,10 @@ class GroupingApplicationTests {
 	@DisplayName("Multiple numbers no adjacent duplicates")
 	public void testSummarizeCollectionNoDuplicates() {
 		Collection<Integer> input = number.collect("1, 2, 3, 4, 5");
-		String expected = "1-5";
-		String actual = number.summarizeCollection(input);
+		var expected = "1-5";
+		var actual = number.summarizeCollection(input);
+
+		assertNotNull(actual);
 		assertEquals(expected, actual);
 	}
 
@@ -122,8 +129,10 @@ class GroupingApplicationTests {
 	@DisplayName("Multiple Adjacent Duplicates")
 	public void testSummarizeCollectionMultipleAdjacentDuplicates() {
 		Collection<Integer> input = number.collect("1, 2, 2, 3, 3, 3, 4, 5, 5, 6, 6, 6,9,10,11,13");
-		String expected = "1-6,9-11,13";
-		String actual = number.summarizeCollection(input);
+		var  expected = "1-6,9-11,13";
+		var  actual = number.summarizeCollection(input);
+
+		assertNotNull(actual);
 		assertEquals(expected, actual);
 	}
 
@@ -131,27 +140,29 @@ class GroupingApplicationTests {
 	@DisplayName("Test given input")
 	public void testSummarizeCollectionSimpleInput() {
 		Collection<Integer> input = number.collect("1,3,6,7,8,12,13,14,15,21,22,23,24,31");
-		String expected = "1,3,6-8,12-15,21-24,31";
-		String actual = number.summarizeCollection(input);
+		var expected = "1,3,6-8,12-15,21-24,31";
+		var actual = number.summarizeCollection(input);
+
+		assertNotNull(actual);
 		assertEquals(expected, actual);
 	}
 	@Test
 	@DisplayName("Unordered with duplicates")
 	public void testSummarizeCollectionUnorderedWithDuplicates() {
 		Collection<Integer> input = number.collect("11,11,10,9,9,1,1, 2,2,2, 13,14,15, 4, 5,6,6,19,19");
-		String expected = "1-2,4-6,9-11,13-15,19";
-		String actual = number.summarizeCollection(input);
+		var expected = "1-2,4-6,9-11,13-15,19";
+		var actual = number.summarizeCollection(input);
+
+		assertNotNull(actual);
 		assertEquals(expected, actual);
 	}
 
 	@Test
 	@DisplayName("Empty input")
-	public void testSummarizeCollectionUnorderedWithEmptyString(){
-		String expected = "";
+	void testSummarizeCollectionUnorderedWithEmptyString(){
 
-		String actual = number.summarizeCollection(Collections.emptyList() );
-
-		assertEquals(expected,actual);
+		assertNull(number.summarizeCollection(Collections.emptyList()));
+		assertNull(number.summarizeCollection(null));
 
 	}
 

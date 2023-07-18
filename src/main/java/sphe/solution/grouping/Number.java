@@ -21,7 +21,7 @@ public class Number implements NumberRangeSummarizer{
 
         Optional<String> stringOptional = Optional.ofNullable(input);
 
-        if (stringOptional.isEmpty()) throw new IllegalArgumentException("Input cannot be null");
+        if (stringOptional.isEmpty()) throw new IllegalArgumentException("Input cannot be Empty/Null");
 
         var number = input.split(",");
 
@@ -45,8 +45,14 @@ public class Number implements NumberRangeSummarizer{
     @Override
     public String summarizeCollection(Collection<Integer> input) {
 
-        if(input.isEmpty())
-            return "";
+        if(input == null)
+            return null;
+
+        if(input.isEmpty() ) {
+            return null;
+        }
+
+
 
         // Collection doesn't have a get(index), so I used the iterator, with equivalent pointer-iterator
         Iterator<Integer>  iterator = input.iterator();
