@@ -30,6 +30,7 @@ public class Number implements NumberRangeSummarizer{
             throw new IllegalArgumentException("Input must contain at least one number");
         }
 
+
         return Arrays.stream(number)
                 .map(String::trim)
                 .filter(num -> num.chars().allMatch(Character::isDigit))
@@ -45,7 +46,7 @@ public class Number implements NumberRangeSummarizer{
     @Override
     public String summarizeCollection(Collection<Integer> input) {
 
-        if(input == null)
+        if(Objects.isNull(input))
             return null;
 
         if(input.isEmpty() ) {
@@ -63,7 +64,7 @@ public class Number implements NumberRangeSummarizer{
 
         while(iterator.hasNext()){
             Integer item = iterator.next();
-            if(prev!= null && item.equals(prev + 1)){
+            if(Objects.nonNull(prev) && item.equals(prev + 1)){
                 currentGroup.add(item);
             }
             else{
