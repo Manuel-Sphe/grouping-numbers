@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 @Component
 @Lazy
-public class Number implements NumberRangeSummarizer{
+public class Number implements NumberRangeSummarizer  {
 
     /**
      * Collects the input
@@ -37,6 +37,8 @@ public class Number implements NumberRangeSummarizer{
                 .map(Integer::parseInt)
                 .sorted().distinct().collect(Collectors.toList());
     }
+
+
 
     /**
      * get the summarized string
@@ -99,4 +101,6 @@ public class Number implements NumberRangeSummarizer{
 
         return String.join(",",myList);
     }
+
+
 }

@@ -11,12 +11,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Lazy
@@ -37,23 +37,47 @@ class GroupingApplicationTests {
 
 	@Test
 	void testCollect_WithSpaces(){
-		actual = number.collect(" 1 , 2 , 3 ");
+		var  input = " 1 , 2 , 3";
+		actual = number.collect(input);
+
 		assertEquals(expected, actual);
+		assertIterableEquals(expected , actual);
+		assertDoesNotThrow(() -> number.collect(input));
 	}
 
 	@Test
 	void testCollect_WithoutSpaces(){
-		actual = number.collect("1,2,3");
+
+		var input = "1,2,3";
+		actual = number.collect(input);
+
 		assertEquals(expected, actual);
+		assertIterableEquals(actual, expected);
+		assertDoesNotThrow(() -> number.collect(input));
 	}
 
+	/**
+	 * When given an input numbers and non numerics, filter and return a list with numerics only
+	 */
 	@Test
 	void testCollect_hasNonNumeric(){
-		Collection<Integer> input = number.collect("1,a,2,3,b,5,6,8");
-		String expected = "1-3,5-6,8";
-		String actual = number.summarizeCollection(input);
 
-		assertEquals(expected,actual);
+		var inputString = "1,a,2,3,b,5,6,8" ;
+
+		Collection<Integer> actual  = number.collect(inputString);
+
+		Collection<Integer> expected = List.of(1,2,3,5,6,8);
+
+
+		assertEquals(actual, expected);
+		assertDoesNotThrow( ()-> number.collect(inputString),"Should throw an exception");
+		assertIterableEquals(actual , expected, "Iterables should be deeply equal");
+
+		/*
+		 * check  if they refer to same object in memory.
+		 */
+		assertNotSame(actual, expected);
+
 	}
 
 	@Test
@@ -89,6 +113,9 @@ class GroupingApplicationTests {
 		Collection<Integer> input = new ArrayList<>();
 
 		assertNull(number.summarizeCollection(input));
+
+		assertIterableEquals(input, new ArrayList<>());
+		assertDoesNotThrow(()->number.summarizeCollection(input));
 	}
 
 	@Test
@@ -100,6 +127,7 @@ class GroupingApplicationTests {
 
 		assertNotNull(actual);
 		assertEquals(expected, actual);
+		assertDoesNotThrow( () -> number.collect("1"));
 	}
 
 	@Test
