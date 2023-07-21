@@ -21,21 +21,29 @@ public class Number implements NumberRangeSummarizer  {
 
         Optional<String> stringOptional = Optional.ofNullable(input);
 
-        if (stringOptional.isEmpty()) throw new IllegalArgumentException("Input cannot be Empty/Null");
+
+
+        String stringValue = stringOptional.orElseThrow(()-> new NullPointerException("Input cannot be null"));
+
+        if (stringValue.trim().isEmpty()) {
+                throw new IllegalArgumentException("Input cannot be Empty");
+        }
 
         var number = input.split(",");
 
         // Check for empty input
-        if (number.length == 1 && number[0].isEmpty()) {
-            throw new IllegalArgumentException("Input must contain at least one number");
-        }
 
-
-        return Arrays.stream(number)
+        List<Integer> numbersList = Arrays.stream(number)
                 .map(String::trim)
                 .filter(num -> num.chars().allMatch(Character::isDigit))
                 .map(Integer::parseInt)
-                .sorted().distinct().collect(Collectors.toList());
+                .sorted().distinct().toList();
+
+        if (numbersList.isEmpty()) {
+            throw new IllegalArgumentException("Input must contain at least number");
+        }
+
+        return numbersList ;
     }
 
 

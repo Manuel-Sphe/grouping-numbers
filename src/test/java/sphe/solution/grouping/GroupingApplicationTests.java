@@ -62,7 +62,7 @@ class GroupingApplicationTests {
 	@Test
 	void testCollect_hasNonNumeric(){
 
-		var inputString = "1,a,2,3,b,5,6,8" ;
+		var inputString = "1,abc,2,3,b,5,6,8" ;
 
 		Collection<Integer> actual  = number.collect(inputString);
 
@@ -86,9 +86,9 @@ class GroupingApplicationTests {
 			number.collect("");
 			fail("Expected IllegalArgumentException");
 		} catch (IllegalArgumentException e) {
-			assertEquals("Input must contain at least one number", e.getMessage());
+			assertEquals("Input cannot be Empty", e.getMessage());
 		}
-		assertThrows(IllegalArgumentException.class ,()-> number.collect(null));
+		assertThrows(IllegalArgumentException.class ,()-> number.collect(""));
 	}
 
 	@Test
@@ -96,17 +96,16 @@ class GroupingApplicationTests {
 		// Test null input
 		try {
 			number.collect(null);
-			fail("Expected IllegalArgumentException");
-		} catch (IllegalArgumentException e) {
-			assertEquals("Input cannot be Empty/Null", e.getMessage());
+			fail("Expected NullPointerException");
+		} catch (NullPointerException e) {
+			assertEquals("Input cannot be null", e.getMessage());
 		}
-		assertThrows(IllegalArgumentException.class ,()-> number.collect(null));
+		assertThrows(NullPointerException.class ,()-> number.collect(null));
 	}
 
-	/*
+	/**
 	* Changed these Test to use the collect() method as a helper method
-	* */
-
+	*/
 	@Test
 	public void testSummarizeCollectionEmpty() {
 
@@ -118,8 +117,23 @@ class GroupingApplicationTests {
 		assertDoesNotThrow(()->number.summarizeCollection(input));
 	}
 
+	/**
+	 * given  a non-empty input like a,b,c,d,e
+	 */
+	@Test
+	void testSummarizedCollectionInputNoNumerics(){
+
+		var inputString = "a, b, c, d, e, f";
+
+		assertThrows(IllegalArgumentException.class , ()-> number.collect(inputString));
+	}
+
+	/**
+	 * Test with a single number in the input.
+	 */
 	@Test
 	public void testSummarizeCollectionSingleNumber() {
+
 
 		Collection<Integer> input = number.collect("1");
 		var expected = "1";
