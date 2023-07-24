@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -215,5 +216,14 @@ class GroupingApplicationTests {
 		);
 	}
 
+
+	@ParameterizedTest
+	@CsvSource(value = {"1,2,3:1-3" , "1,abc,2,3,b,5,6,8:1-3,5-6,8"} ,  delimiter = ':')
+	void testSummarizeCollectionCSSource(String input, String expected){
+
+		String actual = number.summarizeCollection(number.collect(input));
+
+		assertEquals(expected , actual);
+	}
 
 }
