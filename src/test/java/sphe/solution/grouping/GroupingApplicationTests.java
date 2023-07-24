@@ -5,6 +5,9 @@ import org.junit.Before;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +15,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -88,7 +92,7 @@ class GroupingApplicationTests {
 		} catch (IllegalArgumentException e) {
 			assertEquals("Input cannot be Empty", e.getMessage());
 		}
-		assertThrows(IllegalArgumentException.class ,()-> number.collect(""));
+		assertThrows(IllegalArgumentException.class ,()-> number.collect(" "));
 	}
 
 	@Test
@@ -190,5 +194,26 @@ class GroupingApplicationTests {
 		assertNull(number.summarizeCollection(null));
 
 	}
+
+
+	/**
+	 *  Parameterized Tests
+	 * @param inputString csv string of numbers
+	 * @param expected a list of Integers
+	 */
+	@ParameterizedTest
+	@MethodSource("provideCollectionForMultiple")
+	void testMultipleCollections(String inputString , Collection<Integer> expected){
+		assertEquals(expected, number.collect(inputString) );
+	}
+	private static Stream<Arguments> provideCollectionForMultiple(){
+
+		return Stream.of(
+				Arguments.of("1 , 2 , 3" , List.of(1,2,3)),
+				Arguments.of("1" , List.of(1)),
+				Arguments.of("1,abc,2,3,b,5,6,8", List.of(1,2,3,5,6,8))
+		);
+	}
+
 
 }

@@ -1,0 +1,140 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GenericImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">sphe.solution.grouping</a>
+</div>
+
+<h1>Coverage Summary for Class: GenericImpl (sphe.solution.grouping)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GenericImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package sphe.solution.grouping;
+&nbsp;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.Collection;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+<b class="nc">&nbsp;public class GenericImpl implements Genirc&lt;Character&gt;{</b>
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Collection&lt;Character&gt; collect(String input) {
+&nbsp;
+<b class="nc">&nbsp;        Optional&lt;String&gt; stringOptional = Optional.ofNullable(input);</b>
+&nbsp;
+<b class="nc">&nbsp;        if(stringOptional.isEmpty()) throw new IllegalArgumentException(&quot;Input cannot be Empty/Null&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        var chars = input.split(&quot;,&quot;);</b>
+&nbsp;
+&nbsp;        /*
+&nbsp;         * Check for empty input
+&nbsp;         */
+<b class="nc">&nbsp;        if(chars.length == 1 &amp;&amp; chars[0].isEmpty())</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Input should contain at least one char&quot;);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        final boolean a = Character.isLetter(&#39;a&#39;);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String summarizeCollection(Collection&lt;Character&gt; input) {
+<b class="nc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-07-21 13:29</div>
+</div>
+</body>
+</html>

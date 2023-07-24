@@ -3,7 +3,6 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import sphe.solution.grouping.numberrangesummarizer.NumberRangeSummarizer;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 @Component
