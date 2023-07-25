@@ -208,10 +208,9 @@ class GroupingApplicationTests {
 		assertEquals(expected, number.collect(inputString) );
 	}
 	private static Stream<Arguments> provideCollectionForMultiple(){
-
 		return Stream.of(
-				Arguments.of("1 , 2 , 3" , List.of(1,2,3)),
 				Arguments.of("1" , List.of(1)),
+				Arguments.of("1 , 2 , 3" , List.of(1,2,3)),
 				Arguments.of("1,abc,2,3,b,5,6,8", List.of(1,2,3,5,6,8))
 		);
 	}
